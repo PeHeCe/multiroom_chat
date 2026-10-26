@@ -1,5 +1,16 @@
 var app = require('./config/server');
 
-app.listen(3000, function () {
+var server = app.listen(3000, function () {
     console.log('SERVIDOR ONLINE')
+})
+
+var io = require('socket.io').listen(server);
+
+//criar a conexão por webSocket
+io.on('connection', function(socket){
+    console.log('Usuario conectou');
+
+    socket.on('disconnect', function(){
+        console.log('Usuário desconectou');
+    })
 })
